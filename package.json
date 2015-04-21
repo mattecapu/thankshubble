@@ -1,0 +1,16 @@
+{
+  "name": "thankshubble",
+  "version": "1.0.0",
+  "description": "celebrating website for the 25th anniversary of Hubble Telescope deployment",
+  "main": "routing.js",
+  "dependencies": {
+    "express": "^4.12.3",
+    "xml2js": "^0.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "babel-node routing.js"
+  },
+  "author": "Matteo Capucci <mattecapu@live.it>",
+  "license": "MIT"
+}
