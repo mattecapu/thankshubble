@@ -6,15 +6,15 @@ import { parseString as xml } from 'xml2js';
 xml = Promise.promisify(xml);
 request = Promise.promisify(request);
 
-export default async function (res) {
+export default async function (start) {
 	const arxiv_query = {
 		search_query: 'all:("hubble telescope")',
-		start: 0,
-		max_results: 50,
+		start,
+		max_results: 20,
 		sortBy: 'lastUpdatedDate'
 	}
 	const arxiv_api_url = 'http://export.arxiv.org/api/query?' + qs.stringify(arxiv_query);
-	
+
 	try {
 		// make the request and wait for the result
 		let [, body] = await request(arxiv_api_url);
@@ -29,7 +29,7 @@ export default async function (res) {
 				authors: paper.author.map(x => x.name),
 				href: paper.link[0].$.href
 			}
-		})
+		});
 	} catch(e) {
 		return 'sorry! something went wrong. try to reload the page.';
 	}
