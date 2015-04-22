@@ -4,22 +4,37 @@
   "description": "celebrating website for the 25th anniversary of Hubble Telescope deployment",
   "main": "routing.js",
   "dependencies": {
-    "babelify": "^6.0.2",
-    "bluebird": "^2.9.24",
-    "browserify": "^9.0.8",
+	"bluebird": "^2.9.24",
     "express": "^4.12.3",
     "jquery": "^2.1.3",
     "react": "^0.13.2",
-    "reactify": "^1.1.0",
     "request": "^2.55.0",
     "xml2js": "^0.4.8"
   },
   "devDependencies": {
-    "eyes": "^0.1.8"
+    "eyes": "^0.1.8",
+	"browserify": "^9.0.8",
+	"babelify": "^6.0.2",
+	"babel": "latest",
+	"parallelshell": "latest",
+	"nodemon": "latest"
   },
   "scripts": {
-    "test": "babel-node router.js",
-    "dev": "nodemon --exec \"babel-node --experimental\" ./router.js"
+    "test": "babel-node src/main.js",
+    "launch": "npm run build:seq && babel-node --experimental build/main.js",
+    "dev": "nodemon --verbose --watch src/ --ignore build/ --exec \"npm run launch\" -e \"js html json\"",
+    "build:html": "copy /y src\\client\\index.html build\\client\\index.html",
+    "build:backend": "copy /y src\\main.js build\\main.js /y && copy /y src\\arxiv_api.js build\\arxiv_api.js",
+    "build:client": "browserify -d -e src/client/main.js -t [ babelify --stage 0 ] > build/client/main.js",
+    "build:par": "parallelshell \"npm run build:html\" \"npm run build:backend\" \"npm run build:client\"",
+    "build:seq": "npm run build:html && npm run build:backend && npm run build:client"
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mattecapu/thankshubble"
   },
   "author": "Matteo Capucci <mattecapu@live.it>",
   "license": "MIT"
