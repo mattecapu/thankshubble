@@ -23,8 +23,8 @@ function render() {
 
 function morePapers(loaded_papers) {
 	$.get('/papers', {start: loaded_papers})
-	.done((res) => {
-		app_state.papers = app_state.papers.concat(res);
+	.done((papers) => {
+		app_state.papers.push(...papers);
 		render();
 	})
 	.fail((err) => console.error(err));
