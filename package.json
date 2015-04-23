@@ -17,17 +17,19 @@
 	"babelify": "^6.0.2",
 	"babel": "latest",
 	"parallelshell": "latest",
-	"nodemon": "latest"
+	"nodemon": "latest",
+	"autoprefixer": "latest"
   },
   "scripts": {
     "test": "babel-node src/main.js",
-    "launch": "npm run build:seq && babel-node --experimental build/main.js",
-    "dev": "nodemon --verbose --watch src/ --ignore build/ --exec \"npm run launch\" -e \"js html json\"",
+    "launch": "npm run build:par && babel-node --experimental build/main.js",
+    "dev": "nodemon --verbose --watch src/ --ignore build/ --ignore .git/ --ignore node_modules/ --exec \"npm run launch\" -e \"js html json\"",
     "build:html": "copy /y src\\client\\index.html build\\client\\index.html",
     "build:backend": "copy /y src\\main.js build\\main.js /y && copy /y src\\arxiv_api.js build\\arxiv_api.js",
-    "build:client": "browserify -d -e src/client/main.js -t [ babelify --stage 0 ] > build/client/main.js",
-    "build:par": "parallelshell \"npm run build:html\" \"npm run build:backend\" \"npm run build:client\"",
-    "build:seq": "npm run build:html && npm run build:backend && npm run build:client"
+    "build:client": "browserify --noparse jquery --noparse react -d -e src/client/main.js -t [ babelify --stage 0 ] > build/client/main.js",
+	"build:css": "autoprefixer src/client/css/main.css -o build/client/css/main.css",
+    "build:par": "parallelshell \"npm run build:html\" \"npm run build:backend\" \"npm run build:client\" \"npm run build:css\"",
+    "build:seq": "npm run build:html && npm run build:backend && npm run build:client && npm run build:css"
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.min.js"
