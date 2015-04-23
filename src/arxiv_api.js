@@ -21,6 +21,8 @@ export default async function (start) {
 		// fetch the papers list
 		let papers = (await xml(body)).feed.entry;
 
+		if (papers === undefined) return [];
+
 		// filter the info and return the new collection
 		return papers.map((paper) => {
 			return {
@@ -31,6 +33,7 @@ export default async function (start) {
 			}
 		});
 	} catch(e) {
+		console.error(e);
 		return 'sorry! something went wrong. try to reload the page.';
 	}
 }
