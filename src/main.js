@@ -13,13 +13,13 @@ app.get('/js', file('client/main.js'));
 //app.get('/css', file('client/css/main.css'));
 
 // arXiv API
-app.get('/papers', (req, res) => {
+app.get('/papers', async function (req, res) {
 	if (req.query.start === undefined) {
 		res.status(400).send('Please provide the start parameter');
 		return;
 	}
 
-	let result = arxiv_api(req.query.start);
+	let result = await arxiv_api(req.query.start);
 	if (typeof result === 'string') {
 		res.status(500).send(result);
 	} else {
