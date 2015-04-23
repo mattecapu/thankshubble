@@ -4,13 +4,14 @@ import express from 'express';
 import arxiv_api from './arxiv_api.js';
 
 const app = express();
-const file = (name) => (req, res) => res.sendFile(path.join(__dirname, name));
+const resolve = (name) => path.join(__dirname, name);
+const file = (name) => (req, res) => res.sendFile(resolve(name));
 
 // main page
 app.get(['/', '/index.html'], file('client/index.html'));
 // js & css
 app.get('/js', file('client/main.js'));
-//app.get('/css', file('client/css/main.css'));
+app.use('/css', express.static(resolve('client/css')));
 
 // arXiv API
 app.get('/papers', async function (req, res) {
