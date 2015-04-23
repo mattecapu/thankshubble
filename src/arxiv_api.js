@@ -27,7 +27,7 @@ export default async function (start) {
 		return papers.map((paper) => {
 			return {
 				title: paper.title,
-				abstract: paper.summary,
+				summary: String(paper.summary).substring(0, 400),
 				authors: paper.author.map(x => x.name),
 				href: paper.link[0].$.href
 			}
