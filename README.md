@@ -3,4 +3,4 @@
 
 The site will display the latest scientific results achieved thanks to Hubble instruments and data gathered in the latest years.
 
-The papers will be searched through Microsoft Academic Search API. While waiting for the API key, it's using arXiv API altough it's much poorer in terms of results.
+The papers will be retrieved from the *Microsoft Academic Search API*. While waiting for the API key, it's using arXiv API altough it's much poorer in terms of results.
