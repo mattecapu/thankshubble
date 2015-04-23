@@ -4,31 +4,33 @@ import Paper from './Paper.js';
 
 export default class PapersList extends React.Component {
 	constructor() {
-		console.log('construct');
 		super();
-		this.state = {papers: []};
+		this.state = {
+			papers: [],
+			end: false
+		};
 	}
 	render = () => {
-		console.log('render');
 		return (
 			<ol className="papers">
-				{this.state.papers.map((paper) => {console.log(paper);return <Paper {...paper} />})}
-				<button className="js-more" onClick={this.loadMore}>{"+ load more +"}</button>
+				{this.state.papers.map((paper) => <Paper {...paper} />)}
+				{this.state.end ? '' : <button className="js-more" onClick={this.loadMore}>{"+ load more +"}</button>}
 			</ol>
 		);
 	};
 	loadMore = () => {
 		$.get('/papers', {start: this.state.papers.length})
 		.done((papers) => {
-			console.log(papers);
 			this.setState({
 				papers: this.state.papers.concat(papers)
 			});
+			if (papers.length < 20) {
+				this.setState({
+					end: true
+				});
+			}
 		})
-		.fail((err) => console.error(err));
+		.fail((err) => console.error(err.responseText));
 	};
-	componentDidMount = () => {
-		console.log('didmount');
-		this.loadMore();
-	};
+	componentDidMount = this.loadMore;
 }
