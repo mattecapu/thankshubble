@@ -10,7 +10,7 @@ export default class Paper extends React.Component {
 				</h2>
 				<p className="paper__summary">{this.props.summary + '…'}</p>
 				<footer>
-					<ul className="authors">
+					<ul className="paper__authors">
 						{this.props.authors.map(x => <li>{x}</li>)}
 					</ul>
 				</footer>

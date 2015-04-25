@@ -12,45 +12,109 @@ html, body {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 100vh;
 	margin: 0;
 	font-family: 'Roboto Slab', 'Open Sans', 'Segoe UI', sans-serif;
 	font-size: 16px;
 	line-height: 1.7;
 	color: #2D2D3C;
+	background: hsl(240, 78%, 9%);
 }
 
 .heading {
+	flex: none;
+	height: 350px;
+	padding: 20px 0;
 	text-align: center;
 	color: #fff;
-	background: url('telescope.jpg') center center;
-	background-size: cover;
-	background-position-x: -18%;
-	background-position-y: 76%;
-	padding: 20px 0;
-	height: 100vh;
 }
-.-reposition {
-	width: 100%;
-	position: absolute;
-}
-.heading__title {
-	font-family: 'Lobster', 'Robot Slab', 'Open Sans', 'Segoe UI', sans-serif;
-	font-size: 120px;
-	letter-spacing: 10px;
-	margin: 0;
-	bottom: 81px;
-}
-.heading__tagline {
-	margin-top: 25px;
-	font-size: 45px;
-	bottom: 0;
-}
+	.-reposition {
+		position: absolute;
+		width: 100%;
+	}
+	.heading__title {
+		bottom: 81px;
+		margin: 0;
+		font-family: 'Lobster', 'Robot Slab', 'Open Sans', 'Segoe UI', sans-serif;
+		font-size: 120px;
+		letter-spacing: 10px;
+		text-shadow: 1px 1px hsl(41, 78%, 47%), 2px 2px hsl(41, 78%, 47%),
+					 3px 3px hsl(41, 78%, 47%), 4px 4px hsl(41, 78%, 47%),
+					 5px 5px hsl(41, 78%, 47%), 6px 6px hsl(41, 78%, 47%);
+	}
+	.heading__tagline {
+		bottom: 0;
+		margin-top: 25px;
+		font-size: 45px;
+		text-shadow: 1px 0 hsl(41, 78%, 47%),
+					 2px 0px hsl(41, 78%, 47%),
+					 3px 1px hsl(41, 78%, 47%);
+	}
 
 .content {
-	max-width: 900px;
+	flex: 1 0 auto;
 	width: 100%;
-	margin: 0 auto;
+	max-width: 900px;
+	margin: 0 auto 10px;
 }
-.paper__title {
-	font-size: 25px;
+.load-more {
+	display: block;
+	width: 30%;
+	margin: 35px auto 0;
+	padding: 1px 0 5px;
+	font-size: 22px;
+	font-weight: bold;
+	font-variant: small-caps;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	background: hsl(41, 78%, 47%);
+	color: hsl(240, 78%, 9%);
+	box-shadow: -1px 4px 0 -1px hsl(41, 45%, 91%),
+				0px 4px 0 -1px hsl(41, 45%, 91%),
+				1px 4px 0 -1px hsl(41, 45%, 91%);
 }
+
+.paper {
+	margin-bottom: 20px;
+	padding: 10px 15px 15px;
+	border-radius: 10px;
+	background: hsl(41, 45%, 91%);
+	box-shadow: -1px 5px 0 -1px hsl(41, 78%, 47%),
+				0px 5px 0 -1px hsl(41, 78%, 47%),
+				1px 5px 0 -1px hsl(41, 78%, 47%);
+}
+	.paper__title {
+		margin: 0;
+		font-size: 25px;
+	}
+	.paper__authors {
+		list-style: none;
+		padding: 0;
+		font-style: italic;
+		font-weight: bold;
+	}
+	.paper__authors::before {
+		content: 'by ';
+	}
+	.paper__authors li {
+		display: inline;
+	}
+	.paper__authors li + li::before {
+		content: ', ';
+	}
+
+.footer {
+	flex: none;
+	height: 120px;
+	padding: 65px 30px 20px;
+	text-align: center;
+	color: #fff;
+	background: linear-gradient(0deg, hsl(240, 78%, 2%) 50%, hsl(240, 78%, 9%));
+}
+	.footer a {
+		color: hsl(53, 86%, 65%);
+	}
