@@ -18,18 +18,23 @@
 	"babel": "latest",
 	"parallelshell": "latest",
 	"nodemon": "latest",
-	"autoprefixer": "latest"
+	"autoprefixer": "latest",
+	"onchange": "latest"
   },
   "scripts": {
     "test": "babel-node src/main.js",
-    "launch": "npm run build:par && babel-node --experimental build/main.js",
-    "dev": "nodemon --verbose --watch src/ --ignore build/ --ignore .git/ --ignore node_modules/ --exec \"npm run launch\" -e \"js html json\"",
+    "launch": "babel-node --experimental build/main.js",
+    "dev": "nodemon --verbose --watch src/ --ignore src/client/ --ignore build/ --ignore .git/ --ignore node_modules/ --exec \"npm run launch\" -e \"js html json\"",
+	"watch:css": "onchange src/client/css/main.css -- npm run build:css",
+	"watch:client": "onchange \"src/client/*.js\" -- npm run build:client",
+	"watch:html": "onchange src/client/index.html -- npm run build:html",
+	"watch:backend": "onchange \"src/*.js\" -- npm run build:backend",
+	"watch": "parallelshell \"npm run watch:css\" \"npm run watch:html\" \"npm run watch:client\" \"npm run watch:backend\"",
     "build:html": "copy /y src\\client\\index.html build\\client\\index.html",
     "build:backend": "copy /y src\\main.js build\\main.js /y && copy /y src\\arxiv_api.js build\\arxiv_api.js",
     "build:client": "browserify --noparse jquery --noparse react -d -e src/client/main.js -t [ babelify --stage 0 ] > build/client/main.js",
 	"build:css": "autoprefixer src/client/css/main.css -o build/client/css/main.css",
-    "build:par": "parallelshell \"npm run build:html\" \"npm run build:backend\" \"npm run build:client\" \"npm run build:css\"",
-    "build:seq": "npm run build:html && npm run build:backend && npm run build:client && npm run build:css"
+    "build": "parallelshell \"npm run build:html\" \"npm run build:backend\" \"npm run build:client\" \"npm run build:css\""
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.min.js"
