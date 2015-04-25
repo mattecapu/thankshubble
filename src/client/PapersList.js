@@ -7,14 +7,14 @@ export default class PapersList extends React.Component {
 		super();
 		this.state = {
 			papers: [],
-			end: false
+			end: true
 		};
 	}
 	render = () => {
 		return (
 			<ol className="papers">
 				{this.state.papers.map((paper) => <Paper {...paper} />)}
-				{this.state.end ? '' : <button className="js-more" onClick={this.loadMore}>{"+ load more +"}</button>}
+				{this.state.end ? '' : <button className="load-more" onClick={this.loadMore}>{"load more"}</button>}
 			</ol>
 		);
 	};
@@ -24,11 +24,9 @@ export default class PapersList extends React.Component {
 			this.setState({
 				papers: this.state.papers.concat(papers)
 			});
-			if (papers.length < 20) {
-				this.setState({
-					end: true
-				});
-			}
+			this.setState({
+				end: papers.length < 10
+			});
 		})
 		.fail((err) => console.error(err.responseText));
 	};

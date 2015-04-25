@@ -10,7 +10,7 @@ export default async function (start) {
 	const arxiv_query = {
 		search_query: 'all:("hubble telescope")',
 		start,
-		max_results: 20,
+		max_results: 10,
 		sortBy: 'lastUpdatedDate'
 	}
 	const arxiv_api_url = 'http://export.arxiv.org/api/query?' + qs.stringify(arxiv_query);
